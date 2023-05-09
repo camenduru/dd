@@ -51,7 +51,7 @@ if os.path.exists(f"{root_folder}/{image_folder:04}") == False:
     os.mkdir(f"{root_folder}/{image_folder:04}")
 name = max([int(f[: f.index(".")]) for f in os.listdir(f"{root_folder}/{image_folder:04}")], default=0)
 
-pipe = StableDiffusionPipeline.from_pretrained(model_folder, torch_dtype=torch.float16, safety_checker=None).to("cuda")
+pipe = StableDiffusionPipeline.from_pretrained(model_folder, torch_dtype=torch.float16, safety_checker=None, custom_pipeline="lpw_stable_diffusion").to("cuda")
 pipe.enable_xformers_memory_efficient_attention()
 
 @to_thread
