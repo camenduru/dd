@@ -84,5 +84,5 @@ discord_token = os.environ["DISCORD_TOKEN"]
 
 @bot.command()
 async def L(ctx, *, message: str):
-    await generate(discord_token, ctx.channel.id, ctx.message.author.mention, "camenduru", 50, 7.5, "UniPC", 512, 512, message, "nsfw", "png", image_folder, name)
+    await generate(discord_token, ctx.channel.id, ctx.message.author.mention, "camenduru", 20, 7.5, "UniPC", 512, 512, message, "nsfw", "png", image_folder, name)
 bot.run(discord_token)
