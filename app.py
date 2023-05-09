@@ -79,7 +79,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='>', intents=intents)
 
-discord_token = "DISCORD_TOKEN_HERE"
+discord_token = os.environ["DISCORD_TOKEN"]
 
 @bot.command()
 async def L(ctx, *, message: str):
