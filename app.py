@@ -1,5 +1,5 @@
 import sys, argparse, random, os, gc, requests, json, piexif, discord, torch
-from diffusers import StableDiffusionPipeline
+from diffusers import StableDiffusionPipeline, EulerAncestralDiscreteScheduler
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 from fold_to_ascii import fold
@@ -53,6 +53,7 @@ name = max([int(f[: f.index(".")]) for f in os.listdir(f"{root_folder}/{image_fo
 
 pipe = StableDiffusionPipeline.from_pretrained(model_folder, torch_dtype=torch.float16, safety_checker=None, custom_pipeline="lpw_stable_diffusion").to("cuda")
 pipe.enable_xformers_memory_efficient_attention()
+pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(pipe.scheduler.config)
 
 @to_thread
 def generate(discord_token, discord_channel_id, discord_user, by, num_inference_steps, guidance_scale, sampler, width, height, prompt, negative_prompt, suffix, image_folder, name):
@@ -83,5 +84,5 @@ discord_token = os.environ["DISCORD_TOKEN"]
 
 @bot.command()
 async def L(ctx, *, message: str):
-    await generate(discord_token, ctx.channel.id, ctx.message.author.mention, "camenduru", 50, 7.5, "PLMS", 512, 512, message, "nsfw", "png", image_folder, name)
+    await generate(discord_token, ctx.channel.id, ctx.message.author.mention, "camenduru", 50, 7.5, "EulerA", 512, 512, message, "nsfw", "png", image_folder, name)
 bot.run(discord_token)
