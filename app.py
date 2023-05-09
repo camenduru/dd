@@ -79,11 +79,9 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='>', intents=intents)
 
+discord_token = "DISCORD_TOKEN_HERE"
+
 @bot.command()
 async def L(ctx, *, message: str):
-    with open("template.json", "r") as jsonFile:
-        d = json.load(jsonFile)
-    name = max([int(f[: f.index(".")]) for f in os.listdir(f"{root_folder}/{image_folder:04}")], default=0)
-    name += 1
-    await generate(d["discord_token"], ctx.channel.id, ctx.message.author.mention, d["by"], d["num_inference_steps"], d["guidance_scale"], d["sampler"], d["width"], d["height"], message, d["negative_prompt"], d["suffix"], image_folder, name)
-bot.run('')
+    await generate(discord_token, ctx.channel.id, ctx.message.author.mention, "camenduru", 50, 7.5, "PLMS", 512, 512, message, "nsfw", "png", image_folder, name)
+bot.run(discord_token)

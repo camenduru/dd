@@ -1,0 +1,14 @@
+discord
+fold_to_ascii
+piexif
+pillow
+requests
+xformers==0.0.19
+triton==2.0.0
+diffusers
+transformers
+accelerate
+ftfy
+omegaconf
+safetensors
+pytorch_lightning
